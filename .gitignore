@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.env
+.venv
+venv/
+env/
+ENV/
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+dist/
+build/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# Pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# Data / models
+*.pth
+*.pt
+*.h5
+*.ckpt
+*.model
+*.npz
+*.npy
+*.tsv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# OneDrive temporary files
+~$*
+
+# Ignore user-specific files
+.idea/
+*.iml
+
+# Environment files
+.env.local
+.env.*.local
+
+# Keep this file tracked
+!.gitignore
