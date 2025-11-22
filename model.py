@@ -10,7 +10,8 @@ import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
 import random
-
+import matplotlib.pyplot as plt
+import time
 
 class TfidfSVDTransformer:
     """Transforms text to dense features using TF-IDF then TruncatedSVD.
@@ -22,7 +23,7 @@ class TfidfSVDTransformer:
     def __init__(self, max_features=20000, n_components=512):
         self.max_features = max_features
         self.n_components = n_components
-        self.tfidf = TfidfVectorizer(max_features=self.max_features, stop_words='english')
+        self.tfidf = TfidfVectorizer(max_features=self.max_features, ngram_range=(1, 2), stop_words='english')
         self.svd = TruncatedSVD(n_components=self.n_components, random_state=42)
 
     def fit_transform(self, texts):
@@ -49,7 +50,7 @@ class ToxicDataset(Dataset):
 
 
 class MLP(nn.Module):
-    def __init__(self, input_size, output_size, dropout=0.2):
+    def __init__(self, input_size, output_size, dropout):
         super().__init__()
         self.sequential = nn.Sequential(
             nn.Linear(input_size, 1024),
@@ -59,17 +60,17 @@ class MLP(nn.Module):
             nn.Linear(1024, 512),
             nn.ReLU(),
             nn.Dropout(dropout),
-
-            nn.Linear(512, output_size)
         )
+        self.output_layer = nn.Linear(512, output_size)
         
     def forward(self, x):
         x = self.sequential(x)
+        x = self.output_layer(x)
 
         return x
 
 
-def training(train_exs, dev_exs):
+def train_MLP(train_exs, dev_exs):
     random.seed(42)
     torch.manual_seed(42)
 
@@ -90,7 +91,7 @@ def training(train_exs, dev_exs):
     # Initialize model
     model = MLP(input_size=input_size, output_size=output_size, dropout=dropout)
     model.to(device)
-
+    
     criterion = nn.BCEWithLogitsLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
@@ -105,7 +106,14 @@ def training(train_exs, dev_exs):
 
     train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
     dev_loader = DataLoader(dev_dataset, batch_size=32, shuffle=False)
+    
+    epoch_list = []
+    train_loss_list = []
+    dev_loss_list = []
 
+    dev_accuracy_list = []
+    exact_match_list = []
+    
     # Training Loop
     for epoch in range(1, epochs+1):
         model.train()
@@ -154,3 +162,34 @@ def training(train_exs, dev_exs):
               f"dev_f1={f1} | "
               f"dev_acc={dev_accuracy} | "
               f"exact_match={exact_match}")
+        
+        epoch_list.append(epoch)
+        train_loss_list.append(avg_loss)
+        dev_loss_list.append(dev_loss)
+        dev_accuracy_list.append(dev_accuracy)
+        exact_match_list.append(exact_match)
+    
+    # Plotting results
+    plotting(epoch_list, train_loss_list, dev_loss_list, dev_accuracy_list, exact_match_list)
+        
+def plotting(epoch_list, train_loss_list, dev_loss_list, dev_accuracy_list, exact_match_list):
+    plt.figure()
+
+    plt.plot(epoch_list, train_loss_list, label='Train Loss')
+    plt.plot(epoch_list, dev_loss_list, label='Dev Loss')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.title('Training and Dev Loss over Epochs')
+    plt.legend()
+
+    plt.figure()
+    plt.plot(epoch_list, dev_accuracy_list, label='Dev Accuracy')
+    plt.plot(epoch_list, exact_match_list, label='Exact Match')
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy')
+    plt.title('Dev Accuracy and Exact Match over Epochs')
+    plt.legend()
+
+    plt.tight_layout()
+    plt.show()
+    

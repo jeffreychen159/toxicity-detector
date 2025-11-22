@@ -43,4 +43,4 @@ if __name__ == '__main__':
     dev_exs = (X_val, y_val)
 
     # Train Model
-    training(train_exs, dev_exs)
+    train_MLP(train_exs, dev_exs)
