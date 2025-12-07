@@ -1,4 +1,4 @@
-Epoch 1/3 | train_loss=0.0756 | dev_loss=84.3002 | dev_f1_micro=0.7710 | dev_acc=0.9796 | exact_match=0.9044 | time=394.6 sec
+Epoch 1/3 | train_loss=0.0756 | dev_loss=84.3002 | dev_f1_micro=0.7710 | dev_acc=0.9796 | exact_match=0.9044 | time=406.8 sec
 Per-label metrics:
 toxic: F1=0.8205, Precision=0.8393, Recall=0.8026, Support=3039.0
 severe_toxic: F1=0.3318, Precision=0.5984, Recall=0.2296, Support=318.0
@@ -7,7 +7,7 @@ threat: F1=0.0202, Precision=0.5000, Recall=0.0103, Support=97.0
 insult: F1=0.7585, Precision=0.7631, Recall=0.7539, Support=1589.0
 identity_hate: F1=0.3288, Precision=0.6667, Recall=0.2182, Support=275.0
 
-Epoch 2/3 | train_loss=0.0498 | dev_loss=80.6778 | dev_f1_micro=0.7824 | dev_acc=0.9799 | exact_match=0.9065 | time=389.3 sec
+Epoch 2/3 | train_loss=0.0498 | dev_loss=80.6778 | dev_f1_micro=0.7824 | dev_acc=0.9799 | exact_match=0.9065 | time=398.5 sec
 Per-label metrics:
 toxic: F1=0.8231, Precision=0.8385, Recall=0.8082, Support=3039.0
 severe_toxic: F1=0.4271, Precision=0.5847, Recall=0.3365, Support=318.0
@@ -16,7 +16,7 @@ threat: F1=0.5426, Precision=0.5604, Recall=0.5258, Support=97.0
 insult: F1=0.7657, Precision=0.7593, Recall=0.7722, Support=1589.0
 identity_hate: F1=0.5469, Precision=0.6233, Recall=0.4873, Support=275.0
 
-Epoch 3/3 | train_loss=0.0403 | dev_loss=87.3752 | dev_f1_micro=0.7734 | dev_acc=0.9795 | exact_match=0.9062 | time=390.4 sec
+Epoch 3/3 | train_loss=0.0403 | dev_loss=87.3752 | dev_f1_micro=0.7734 | dev_acc=0.9795 | exact_match=0.9062 | time=395.9 sec
 Per-label metrics:
 toxic: F1=0.8152, Precision=0.8579, Recall=0.7766, Support=3039.0
 severe_toxic: F1=0.5232, Precision=0.4986, Recall=0.5503, Support=318.0
@@ -24,3 +24,77 @@ obscene: F1=0.8059, Precision=0.8583, Recall=0.7594, Support=1667.0
 threat: F1=0.5432, Precision=0.6769, Recall=0.4536, Support=97.0
 insult: F1=0.7622, Precision=0.7843, Recall=0.7413, Support=1589.0
 identity_hate: F1=0.5844, Precision=0.5833, Recall=0.5855, Support=275.0
+
+================================================================================
+TRAINING COMPLETE - Computing comprehensive metrics...
+================================================================================
+
+Computing comprehensive metrics...
+
+================================================================================
+COMPREHENSIVE EVALUATION METRICS
+================================================================================
+
+Overall Metrics (threshold=0.5):
+  Loss:              0.0565
+  Micro F1:          0.7734
+  Macro F1:          0.6723
+  Macro Precision:   0.7099
+  Macro Recall:      0.6445
+  Element Accuracy:  0.9795
+  Exact Match:       0.9062
+  ROC-AUC (Macro):   0.9842
+
+--------------------------------------------------------------------------------
+Per-Class Metrics:
+--------------------------------------------------------------------------------
+
+TOXIC:
+  F1:          0.8152
+  Precision:   0.8579
+  Recall:      0.7766
+  ROC-AUC:     0.9798
+  Support:     3039
+  Confusion Matrix: TN=21317, FP=391, FN=679, TP=2360
+
+SEVERE_TOXIC:
+  F1:          0.5232
+  Precision:   0.4986
+  Recall:      0.5503
+  ROC-AUC:     0.9858
+  Support:     318
+  Confusion Matrix: TN=24253, FP=176, FN=143, TP=175
+
+OBSCENE:
+  F1:          0.8059
+  Precision:   0.8583
+  Recall:      0.7594
+  ROC-AUC:     0.9864
+  Support:     1667
+  Confusion Matrix: TN=22871, FP=209, FN=401, TP=1266
+
+THREAT:
+  F1:          0.5432
+  Precision:   0.6769
+  Recall:      0.4536
+  ROC-AUC:     0.9927
+  Support:     97
+  Confusion Matrix: TN=24629, FP=21, FN=53, TP=44
+
+INSULT:
+  F1:          0.7622
+  Precision:   0.7843
+  Recall:      0.7413
+  ROC-AUC:     0.9826
+  Support:     1589
+  Confusion Matrix: TN=22834, FP=324, FN=411, TP=1178
+
+IDENTITY_HATE:
+  F1:          0.5844
+  Precision:   0.5833
+  Recall:      0.5855
+  ROC-AUC:     0.9778
+  Support:     275
+  Confusion Matrix: TN=24357, FP=115, FN=114, TP=161
+
+================================================================================
