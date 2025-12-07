@@ -5,6 +5,7 @@ import numpy as np
 from tqdm import tqdm
 from model import *
 from sklearn.model_selection import train_test_split
+from bert import *
 
 def prepare_labels(df):
     # Typical jigsaw labels
@@ -20,8 +21,7 @@ def prepare_X(df):
     texts = df['comment_text'].fillna("").values
     return texts
 
-
-if __name__ == '__main__': 
+def prepare_MLP(): 
     # Reading data
     train_csv = pd.read_csv("train.csv")
 
@@ -44,3 +44,62 @@ if __name__ == '__main__':
 
     # Train Model
     train_MLP(train_exs, dev_exs)
+    
+def prepare_bertweet_dropped():
+    # Load CSV
+    df = pd.read_csv("train.csv").sample(frac=0.1, random_state=42)
+
+    # Prepare labels
+    y, label_cols = prepare_labels(df)
+    texts = prepare_X(df)
+
+    nontoxic_mask = (y.sum(axis=1) == 0)
+    toxic_mask = ~nontoxic_mask
+
+    nontoxic_indices = np.where(nontoxic_mask)[0]
+    toxic_indices = np.where(toxic_mask)[0]
+
+    np.random.seed(42)
+    num_to_drop = int(0 * len(nontoxic_indices))
+
+    drop_indices = np.random.choice(
+        nontoxic_indices,
+        size=num_to_drop,
+        replace=False
+    )
+
+    # Mask to keep everything except the dropped rows
+    keep_mask = np.ones(len(df), dtype=bool)
+    keep_mask[drop_indices] = False
+
+    texts = texts[keep_mask]
+    y = y[keep_mask]
+
+    print(f"Original dataset size: {len(df)}")
+    print(f"Non-toxic samples: {len(nontoxic_indices)}")
+    print(f"Dropped non-toxic samples: {num_to_drop}")
+    print(f"Final dataset size: {len(texts)}")
+
+    train_texts, val_texts, y_train, y_val = train_test_split(
+        texts, y, test_size=0.2, random_state=42, shuffle=True
+    )
+
+    train_bertweet(train_texts, y_train, val_texts, y_val)
+
+def prepare_bertweet(): 
+    # Load CSV
+    df = pd.read_csv("train.csv")
+
+    # Prepare data
+    y, label_cols = prepare_labels(df)
+    texts = prepare_X(df)
+
+    # Train/Val Split
+    train_texts, val_texts, y_train, y_val = train_test_split(texts, y, test_size=0.2, random_state=42)
+
+    # Train BERTweet
+    train_bertweet(train_texts, y_train, val_texts, y_val)
+
+if __name__ == '__main__': 
+    # prepare_MLP()
+    prepare_bertweet()

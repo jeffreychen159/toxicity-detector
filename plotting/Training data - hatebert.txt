@@ -1,0 +1,136 @@
+
+                                        
+{'eval_loss': 0.03798383101820946, 'eval_micro_f1': 0.779707081383059, 'eval_macro_f1': 0.6552677555995825, 'eval_macro_precision': 0.6822226053346182, 'eval_macro_recall': 0.6334700769618352, 'eval_exact_match': 0.9271211931319714, 'eval_roc_auc_macro': 0.9897591704079547, 'eval_f1_toxic': 0.8178335074886799, 'eval_f1_severe_toxic': 0.46206896551724136, 'eval_f1_obscene': 0.8257339163023111, 'eval_f1_threat': 0.4883720930232558, 'eval_f1_insult': 0.7686325340246274, 'eval_f1_identity_hate': 0.5689655172413793, 'eval_runtime': 27.5348, 'eval_samples_per_second': 579.557, 'eval_steps_per_second': 9.079, 'epoch': 1.0}
+ 33% 4488/13464 [14:53<28:19,  5.28it/s]
+100% 250/250 [00:27<00:00,  9.39it/s]
+
+                                        
+{'eval_loss': 0.03943172097206116, 'eval_micro_f1': 0.7932146361979532, 'eval_macro_f1': 0.6795126999570118, 'eval_macro_precision': 0.6752272742465372, 'eval_macro_recall': 0.6895108966445976, 'eval_exact_match': 0.9258052387517233, 'eval_roc_auc_macro': 0.9888077131688718, 'eval_f1_toxic': 0.8268439379550491, 'eval_f1_severe_toxic': 0.5132075471698113, 'eval_f1_obscene': 0.8340080971659919, 'eval_f1_threat': 0.5526315789473685, 'eval_f1_insult': 0.780940594059406, 'eval_f1_identity_hate': 0.5694444444444444, 'eval_runtime': 27.5295, 'eval_samples_per_second': 579.668, 'eval_steps_per_second': 9.081, 'epoch': 2.0}
+ 67% 8976/13464 [29:59<14:28,  5.17it/s]
+100% 250/250 [00:27<00:00,  8.99it/s]
+
+                                         
+{'eval_loss': 0.042078569531440735, 'eval_micro_f1': 0.7919425271164953, 'eval_macro_f1': 0.6887784864543794, 'eval_macro_precision': 0.6775976185222455, 'eval_macro_recall': 0.7019537307345224, 'eval_exact_match': 0.9252412583030455, 'eval_roc_auc_macro': 0.9878927790805898, 'eval_f1_toxic': 0.8202388434946575, 'eval_f1_severe_toxic': 0.5185185185185185, 'eval_f1_obscene': 0.8338332333533294, 'eval_f1_threat': 0.5681818181818182, 'eval_f1_insult': 0.7805777504609711, 'eval_f1_identity_hate': 0.6113207547169811, 'eval_runtime': 27.7005, 'eval_samples_per_second': 576.091, 'eval_steps_per_second': 9.025, 'epoch': 3.0}
+100% 13464/13464 [45:03<00:00,  5.12it/s]
+100% 250/250 [00:27<00:00,  9.03it/s]
+{'train_runtime': 2713.1794, 'train_samples_per_second': 158.795, 'train_steps_per_second': 4.962, 'train_loss': 0.040279474414871765, 'epoch': 3.0}
+100% 13464/13464 [45:13<00:00,  4.96it/s]
+100% 250/250 [00:29<00:00,  8.59it/s]
+100% 250/250 [00:27<00:00,  9.02it/s]
+
+Validation metrics:
+{
+  "eval_loss": 0.042078569531440735,
+  "eval_micro_f1": 0.7919425271164953,
+  "eval_macro_f1": 0.6887784864543794,
+  "eval_macro_precision": 0.6775976185222455,
+  "eval_macro_recall": 0.7019537307345224,
+  "eval_exact_match": 0.9252412583030455,
+  "eval_roc_auc_macro": 0.9878927790805898,
+  "eval_f1_toxic": 0.8202388434946575,
+  "eval_f1_severe_toxic": 0.5185185185185185,
+  "eval_f1_obscene": 0.8338332333533294,
+  "eval_f1_threat": 0.5681818181818182,
+  "eval_f1_insult": 0.7805777504609711,
+  "eval_f1_identity_hate": 0.6113207547169811,
+  "eval_runtime": 29.3001,
+  "eval_samples_per_second": 544.639,
+  "eval_steps_per_second": 8.532,
+  "epoch": 3.0
+}
+
+
+
+=== SUBTASK B: MULTI-LABEL CLASSIFICATION RESULTS ===
+Model: outputs/hatebert_full/eval_metrics.json
+============================================================
+Macro F1: 0.6888
+Micro F1: 0.7919
+ROC-AUC: 0.9879
+Exact Match: 0.9252
+
+=== PER-CLASS F1 SCORES ===
+toxic          : 0.8202
+severe_toxic   : 0.5185
+obscene        : 0.8338
+threat         : 0.5682
+insult         : 0.7806
+identity_hate  : 0.6113
+
+
+
+============================================================
+SUBTASK A: BINARY TOXICITY CLASSIFICATION
+============================================================
+{
+  "model": "outputs/hatebert_full/checkpoint-13464",
+  "sample_fraction": 1.0,
+  "validation_samples": 15958,
+  "accuracy": 0.9894723649580148,
+  "precision": 0.9460453709380748,
+  "recall": 0.9507085643869377,
+  "f1": 0.9483712354025814,
+  "roc_auc": 0.9968024824521758,
+  "confusion_matrix": {
+    "tn": 14247,
+    "fp": 88,
+    "fn": 80,
+    "tp": 1543
+  },
+  "support": {
+    "non_toxic": 14335,
+    "toxic": 1623
+  }
+}
+
+============================================================
+CONFUSION MATRIX
+============================================================
+True Negatives:  14,247
+False Positives: 88
+False Negatives: 80
+True Positives:  1,543
+
+
+============================================================
+CROSS-DOMAIN RESULTS: REDDIT TOXICITY DETECTION
+============================================================
+{
+  "dataset": "Real Toxicity Prompts (Reddit)",
+  "model": "outputs/hatebert_full/checkpoint-13464",
+  "samples_evaluated": 10000,
+  "accuracy": 0.8966,
+  "precision": 0.9075812274368231,
+  "recall": 0.5811373092926491,
+  "f1": 0.7085682074408117,
+  "roc_auc": 0.9407896595868512,
+  "confusion_matrix": {
+    "tn": 7709,
+    "fp": 128,
+    "fn": 906,
+    "tp": 1257
+  },
+  "support": {
+    "non_toxic": 7837,
+    "toxic": 2163
+  }
+}
+
+============================================================
+CONFUSION MATRIX
+============================================================
+True Negatives:  7,709
+False Positives: 128
+False Negatives: 906
+True Positives:  1,257
+
+============================================================
+DOMAIN GAP ANALYSIS: JIGSAW (Wikipedia) vs REDDIT
+============================================================
+Metric               Jigsaw (Wikipedia)   Reddit               Gap            
+---------------------------------------------------------------------------
+Accuracy             0.9895               0.8966               +0.0929
+Precision            0.9460               0.9076               +0.0385
+Recall               0.9507               0.5811               +0.3696
+F1 Score             0.9484               0.7086               +0.2398
+ROC-AUC              0.9968               0.9408               +0.0560

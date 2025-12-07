@@ -1,11 +1,8 @@
-import argparse
-import os
-import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, accuracy_score
 import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
@@ -84,9 +81,11 @@ def train_MLP(train_exs, dev_exs):
     input_size = X_train.shape[1]
     output_size = y_train.shape[1]
 
-    epochs = 5
+    epochs = 4
     dropout = 0.2
     lr=1e-3
+    # Class labels for per-class metrics (Jigsaw categories)
+    class_labels = ['toxic','severe_toxic','obscene','threat','insult','identity_hate']
 
     # Initialize model
     model = MLP(input_size=input_size, output_size=output_size, dropout=dropout)
@@ -116,6 +115,7 @@ def train_MLP(train_exs, dev_exs):
     
     # Training Loop
     for epoch in range(1, epochs+1):
+        start_time = time.time()
         model.train()
         total_loss = 0.0
         for xb, yb in train_loader:
@@ -147,7 +147,9 @@ def train_MLP(train_exs, dev_exs):
                 all_preds.append(preds)
                 all_labels.append(yb.cpu().numpy())
 
-        dev_loss = dev_loss / len(dev_loader.dataset)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        avg_dev_loss = dev_loss / len(dev_loader.dataset)
         all_preds = np.vstack(all_preds)
         all_labels = np.vstack(all_labels)
 
@@ -156,22 +158,56 @@ def train_MLP(train_exs, dev_exs):
         dev_accuracy = (all_preds == all_labels).mean()
         exact_match = np.mean(np.all(all_preds == all_labels, axis=1))
 
+        # Per-class metrics
+        try:
+            f1_per_class = f1_score(all_labels, all_preds, average=None)
+        except Exception:
+            f1_per_class = [None] * all_labels.shape[1]
+        accuracy_per_class = []
+        for i in range(all_labels.shape[1]):
+            try:
+                acc = accuracy_score(all_labels[:, i], all_preds[:, i])
+            except Exception:
+                acc = None
+            accuracy_per_class.append(acc)
+        accuracy_per_class = np.array(accuracy_per_class, dtype=object)
+
         print(f"Epoch {epoch}/{epochs} | "
               f"train_loss={avg_loss:.4f} | " 
-              f"dev_loss={dev_loss:.4f} | "
-              f"dev_f1={f1} | "
-              f"dev_acc={dev_accuracy} | "
-              f"exact_match={exact_match}")
+              f"dev_loss={avg_dev_loss:.4f} | "
+              f"dev_f1={f1:.4f} | "
+              f"dev_acc={dev_accuracy:.4f} | "
+              f"exact_match={exact_match:.4f} | "
+              f"time={elapsed_time:.2f} seconds")
+        # Print per-class metrics with labels (if available)
+        for i in range(all_labels.shape[1]):
+            label_name = class_labels[i] if i < len(class_labels) else f"class_{i}"
+            f1_val = f1_per_class[i] if f1_per_class is not None else None
+            acc_val = accuracy_per_class[i]
+            f1_str = f"{f1_val:.4f}" if f1_val is not None else "N/A"
+            acc_str = f"{acc_val:.4f}" if acc_val is not None else "N/A"
+            print(f"  {label_name:15s} | F1: {f1_str} | Acc: {acc_str}")
         
         epoch_list.append(epoch)
         train_loss_list.append(avg_loss)
-        dev_loss_list.append(dev_loss)
+        dev_loss_list.append(avg_dev_loss)
         dev_accuracy_list.append(dev_accuracy)
         exact_match_list.append(exact_match)
     
     # Plotting results
-    plotting(epoch_list, train_loss_list, dev_loss_list, dev_accuracy_list, exact_match_list)
-        
+    # plotting(epoch_list, train_loss_list, dev_loss_list, dev_accuracy_list, exact_match_list)
+
+    # Save trained MLP model
+    model_save_path = "mlp_model.pth"
+    try:
+        print(f"Saving MLP model to {model_save_path}...")
+        torch.save(model.state_dict(), model_save_path)
+        print(f"Model saved successfully to {model_save_path}")
+    except Exception as e:
+        print(f"Failed to save MLP model: {e}")
+
+    return model
+
 def plotting(epoch_list, train_loss_list, dev_loss_list, dev_accuracy_list, exact_match_list):
     plt.figure()
 

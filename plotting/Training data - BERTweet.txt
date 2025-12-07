@@ -1,0 +1,54 @@
+Epoch 1/3 | train_loss=0.0785 | dev_loss=0.0429 | dev_f1=0.7842 | dev_acc=0.9844 | exact_match=0.9251 | time=1256.68s
+  toxic           | F1: 0.8332 | Acc: 0.9680
+  severe_toxic    | F1: 0.4509 | Acc: 0.9900
+  obscene         | F1: 0.8349 | Acc: 0.9821
+  threat          | F1: 0.0000 | Acc: 0.9977
+  insult          | F1: 0.7779 | Acc: 0.9774
+  identity_hate   | F1: 0.1595 | Acc: 0.9914
+Epoch 2/3 | train_loss=0.0386 | dev_loss=0.0404 | dev_f1=0.7894 | dev_acc=0.9836 | exact_match=0.9204 | time=1285.91s
+  toxic           | F1: 0.8265 | Acc: 0.9640
+  severe_toxic    | F1: 0.3105 | Acc: 0.9905
+  obscene         | F1: 0.8328 | Acc: 0.9809
+  threat          | F1: 0.5238 | Acc: 0.9981
+  insult          | F1: 0.7771 | Acc: 0.9750
+  identity_hate   | F1: 0.5677 | Acc: 0.9928
+Epoch 3/3 | train_loss=0.0326 | dev_loss=0.0373 | dev_f1=0.7950 | dev_acc=0.9851 | exact_match=0.9277 | time=1252.42s
+  toxic           | F1: 0.8409 | Acc: 0.9687
+  severe_toxic    | F1: 0.3484 | Acc: 0.9910
+  obscene         | F1: 0.8342 | Acc: 0.9824
+  threat          | F1: 0.5419 | Acc: 0.9978
+  insult          | F1: 0.7732 | Acc: 0.9777
+  identity_hate   | F1: 0.5663 | Acc: 0.9931
+
+
+============================================================
+CROSS-DOMAIN RESULTS: REDDIT TOXICITY DETECTION
+============================================================
+{
+  "dataset": "Real Toxicity Prompts (Reddit)",
+  "model": "bertweet_model.pth",
+  "samples_evaluated": 10000,
+  "accuracy": 0.8893,
+  "precision": 0.9,
+  "recall": 0.5492371705963939,
+  "f1": 0.6821705426356589,
+  "roc_auc": 0.9345485640710806,
+  "confusion_matrix": {
+    "tn": 7705,
+    "fp": 132,
+    "fn": 975,
+    "tp": 1188
+  },
+  "support": {
+    "non_toxic": 7837,
+    "toxic": 2163
+  }
+}
+
+============================================================
+CONFUSION MATRIX
+============================================================
+True Negatives:  7,705
+False Positives: 132
+False Negatives: 975
+True Positives:  1,188
