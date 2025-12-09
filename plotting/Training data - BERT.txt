@@ -1,100 +1,109 @@
-Epoch 1/3 | train_loss=0.0756 | dev_loss=84.3002 | dev_f1_micro=0.7710 | dev_acc=0.9796 | exact_match=0.9044 | time=406.8 sec
-Per-label metrics:
-toxic: F1=0.8205, Precision=0.8393, Recall=0.8026, Support=3039.0
-severe_toxic: F1=0.3318, Precision=0.5984, Recall=0.2296, Support=318.0
-obscene: F1=0.8249, Precision=0.8499, Recall=0.8014, Support=1667.0
-threat: F1=0.0202, Precision=0.5000, Recall=0.0103, Support=97.0
-insult: F1=0.7585, Precision=0.7631, Recall=0.7539, Support=1589.0
-identity_hate: F1=0.3288, Precision=0.6667, Recall=0.2182, Support=275.0
 
-Epoch 2/3 | train_loss=0.0498 | dev_loss=80.6778 | dev_f1_micro=0.7824 | dev_acc=0.9799 | exact_match=0.9065 | time=398.5 sec
-Per-label metrics:
-toxic: F1=0.8231, Precision=0.8385, Recall=0.8082, Support=3039.0
-severe_toxic: F1=0.4271, Precision=0.5847, Recall=0.3365, Support=318.0
-obscene: F1=0.8270, Precision=0.8238, Recall=0.8302, Support=1667.0
-threat: F1=0.5426, Precision=0.5604, Recall=0.5258, Support=97.0
-insult: F1=0.7657, Precision=0.7593, Recall=0.7722, Support=1589.0
-identity_hate: F1=0.5469, Precision=0.6233, Recall=0.4873, Support=275.0
 
-Epoch 3/3 | train_loss=0.0403 | dev_loss=87.3752 | dev_f1_micro=0.7734 | dev_acc=0.9795 | exact_match=0.9062 | time=395.9 sec
-Per-label metrics:
-toxic: F1=0.8152, Precision=0.8579, Recall=0.7766, Support=3039.0
-severe_toxic: F1=0.5232, Precision=0.4986, Recall=0.5503, Support=318.0
-obscene: F1=0.8059, Precision=0.8583, Recall=0.7594, Support=1667.0
-threat: F1=0.5432, Precision=0.6769, Recall=0.4536, Support=97.0
-insult: F1=0.7622, Precision=0.7843, Recall=0.7413, Support=1589.0
-identity_hate: F1=0.5844, Precision=0.5833, Recall=0.5855, Support=275.0
+Epoch 1/3 | train_loss=0.0756 | dev_loss=0.0545 | dev_f1_micro=0.7710 | dev_acc=0.9796 | exact_match=0.9044 | time=402.3 sec Per-label metrics: toxic: F1=0.8205, Precision=0.8393, Recall=0.8026, Support=3039.0 severe_toxic: F1=0.3318, Precision=0.5984, Recall=0.2296, Support=318.0 obscene: F1=0.8249, Precision=0.8499, Recall=0.8014, Support=1667.0 threat: F1=0.0202, Precision=0.5000, Recall=0.0103, Support=97.0 insult: F1=0.7585, Precision=0.7631, Recall=0.7539, Support=1589.0 identity_hate: F1=0.3288, Precision=0.6667, Recall=0.2182, Support=275.0 
 
-================================================================================
-TRAINING COMPLETE - Computing comprehensive metrics...
-================================================================================
+Epoch 2/3 | train_loss=0.0498 | dev_loss=0.0522 | dev_f1_micro=0.7824 | dev_acc=0.9799 | exact_match=0.9065 | time=399.3 sec Per-label metrics: toxic: F1=0.8231, Precision=0.8385, Recall=0.8082, Support=3039.0 severe_toxic: F1=0.4271, Precision=0.5847, Recall=0.3365, Support=318.0 obscene: F1=0.8270, Precision=0.8238, Recall=0.8302, Support=1667.0 threat: F1=0.5426, Precision=0.5604, Recall=0.5258, Support=97.0 insult: F1=0.7657, Precision=0.7593, Recall=0.7722, Support=1589.0 identity_hate: F1=0.5469, Precision=0.6233, Recall=0.4873, Support=275.0
 
-Computing comprehensive metrics...
+Epoch 3/3 | train_loss=0.0403 | dev_loss=0.0565 | dev_f1_micro=0.7734 | dev_acc=0.9795 | exact_match=0.9062 | time=398.6 sec Per-label metrics: toxic: F1=0.8152, Precision=0.8579, Recall=0.7766, Support=3039.0 severe_toxic: F1=0.5232, Precision=0.4986, Recall=0.5503, Support=318.0 obscene: F1=0.8059, Precision=0.8583, Recall=0.7594, Support=1667.0 threat: F1=0.5432, Precision=0.6769, Recall=0.4536, Support=97.0 insult: F1=0.7622, Precision=0.7843, Recall=0.7413, Support=1589.0 identity_hate: F1=0.5844, Precision=0.5833, Recall=0.5855, Support=275.0 
 
-================================================================================
-COMPREHENSIVE EVALUATION METRICS
-================================================================================
+================================================================================ TRAINING COMPLETE - Computing comprehensive metrics... ================================================================================ Computing comprehensive metrics... ================================================================================ COMPREHENSIVE EVALUATION METRICS ================================================================================ 
+Overall Metrics (threshold=0.5): 
+Loss: 0.0565 
+Micro F1: 0.7734 
+Macro F1: 0.6723 
+Macro Precision: 0.7099 
+Macro Recall: 0.6445 
+Element Accuracy: 0.9795 
+Exact Match: 0.9062 
+ROC-AUC (Macro): 0.9842
 
-Overall Metrics (threshold=0.5):
-  Loss:              0.0565
-  Micro F1:          0.7734
-  Macro F1:          0.6723
-  Macro Precision:   0.7099
-  Macro Recall:      0.6445
-  Element Accuracy:  0.9795
-  Exact Match:       0.9062
-  ROC-AUC (Macro):   0.9842
+----------------------------------------------------------
+Per-Class Metrics: 
+----------------------------------------------------------
+TOXIC: 
+F1: 0.8152 
+Precision: 0.8579 
+Recall: 0.7766 
+ROC-AUC: 0.9798 
+Support: 3039 
+Confusion Matrix: TN=21317, FP=391, FN=679, TP=2360 
 
---------------------------------------------------------------------------------
-Per-Class Metrics:
---------------------------------------------------------------------------------
+SEVERE_TOXIC: 
+F1: 0.5232 
+Precision: 0.4986 
+Recall: 0.5503 
+ROC-AUC: 0.9858 
+Support: 318 
+Confusion Matrix: TN=24253, FP=176, FN=143, TP=175 
 
-TOXIC:
-  F1:          0.8152
-  Precision:   0.8579
-  Recall:      0.7766
-  ROC-AUC:     0.9798
-  Support:     3039
-  Confusion Matrix: TN=21317, FP=391, FN=679, TP=2360
+OBSCENE: 
+F1: 0.8059 
+Precision: 0.8583 
+Recall: 0.7594 
+ROC-AUC: 0.9864 
+Support: 1667 
+Confusion Matrix: TN=22871, FP=209, FN=401, TP=1266 
 
-SEVERE_TOXIC:
-  F1:          0.5232
-  Precision:   0.4986
-  Recall:      0.5503
-  ROC-AUC:     0.9858
-  Support:     318
-  Confusion Matrix: TN=24253, FP=176, FN=143, TP=175
+THREAT: 
+F1: 0.5432 
+Precision: 0.6769 
+Recall: 0.4536 
+ROC-AUC: 0.9927 
+Support: 97 
+Confusion Matrix: TN=24629, FP=21, FN=53, TP=44 
 
-OBSCENE:
-  F1:          0.8059
-  Precision:   0.8583
-  Recall:      0.7594
-  ROC-AUC:     0.9864
-  Support:     1667
-  Confusion Matrix: TN=22871, FP=209, FN=401, TP=1266
+INSULT: 
+F1: 0.7622 
+Precision: 0.7843 
+Recall: 0.7413 
+ROC-AUC: 0.9826 
+Support: 1589 
+Confusion Matrix: TN=22834, FP=324, FN=411, TP=1178 
 
-THREAT:
-  F1:          0.5432
-  Precision:   0.6769
-  Recall:      0.4536
-  ROC-AUC:     0.9927
-  Support:     97
-  Confusion Matrix: TN=24629, FP=21, FN=53, TP=44
+IDENTITY_HATE: 
+F1: 0.5844 
+Precision: 0.5833 
+Recall: 0.5855 
+ROC-AUC: 0.9778 
+Support: 275 
+Confusion Matrix: TN=24357, FP=115, FN=114, TP=161 ================================================================================
 
-INSULT:
-  F1:          0.7622
-  Precision:   0.7843
-  Recall:      0.7413
-  ROC-AUC:     0.9826
-  Support:     1589
-  Confusion Matrix: TN=22834, FP=324, FN=411, TP=1178
 
-IDENTITY_HATE:
-  F1:          0.5844
-  Precision:   0.5833
-  Recall:      0.5855
-  ROC-AUC:     0.9778
-  Support:     275
-  Confusion Matrix: TN=24357, FP=115, FN=114, TP=161
+================================================================================ CROSS-DOMAIN RESULTS: REDDIT TOXICITY DETECTION ================================================================================ 
+{ 
+	"dataset": "Real Toxicity Prompts (Reddit)", 
+	"model": "BERT-base-cased (trained on Wikipedia/Jigsaw)", 
+	"samples_evaluated": 10000, 
+	"accuracy": 0.8871, 
+	"precision": 0.8904833836858006, 
+	"recall": 0.5450762829403606, 
+	"f1": 0.6762259822196731, 
+	"roc_auc": 0.9302419070106823, 
+	"confusion_matrix": {
+		"tn": 7692, 
+		"fp": 145, 
+		"fn": 984, 
+		"tp": 1179
+		}, 
+		"support": { 
+			"non_toxic": 7837, 
+			"toxic": 2163
+		}
+}
 
-================================================================================
+================================================================================ CONFUSION MATRIX (REDDIT) ================================================================================ 
+True Negatives: 7,692 
+False Positives: 145 
+False Negatives: 984 
+True Positives: 1,179 ================================================================================ DOMAIN GAP ANALYSIS: WIKIPEDIA (JIGSAW) vs REDDIT ================================================================================ 
+Metric Jigsaw (Wikipedia) Reddit Gap 
+--------------------------------------------------------------------------- 
+Accuracy 0.9795 0.8871 +0.0924 
+Precision 0.8579 0.8905 -0.0326 
+Recall 0.7766 0.5451 +0.2315 
+F1 Score 0.8152 0.6762 +0.1390 
+ROC-AUC 0.9798 0.9302 +0.0495 
+
+📉 Performance Drop: 
+	F1 Score decreased by 0.1390 (17.0%) 
+	⚠️ Significant domain gap detected. Model struggles with Reddit-style language.

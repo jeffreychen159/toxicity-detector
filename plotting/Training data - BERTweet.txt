@@ -20,6 +20,38 @@ Epoch 3/3 | train_loss=0.0326 | dev_loss=0.0373 | dev_f1=0.7950 | dev_acc=0.9851
   insult          | F1: 0.7732 | Acc: 0.9777
   identity_hate   | F1: 0.5663 | Acc: 0.9931
 
+============================================================
+SUBTASK A: BINARY TOXICITY CLASSIFICATION (BERTweet)
+============================================================
+{
+  "model": "bertweet_model.pth",
+  "sample_fraction": 1,
+  "validation_samples": 15958,
+  "accuracy": 0.981701967665121,
+  "precision": 0.9177652228499686,
+  "recall": 0.9008009858287123,
+  "f1": 0.9092039800995025,
+  "roc_auc": 0.9943119712039675,
+  "confusion_matrix": {
+    "tn": 14204,
+    "fp": 131,
+    "fn": 161,
+    "tp": 1462
+  },
+  "support": {
+    "non_toxic": 14335,
+    "toxic": 1623
+  }
+}
+
+============================================================
+CONFUSION MATRIX
+============================================================
+True Negatives:  14,204
+False Positives: 131
+False Negatives: 161
+True Positives:  1,462
+
 
 ============================================================
 CROSS-DOMAIN RESULTS: REDDIT TOXICITY DETECTION

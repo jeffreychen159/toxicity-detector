@@ -81,6 +81,9 @@ def train_MLP(train_exs, dev_exs):
     input_size = X_train.shape[1]
     output_size = y_train.shape[1]
 
+    print("Input Size: ", input_size)
+    print("Output Size: ", output_size)
+
     epochs = 4
     dropout = 0.2
     lr=1e-3
@@ -111,6 +114,7 @@ def train_MLP(train_exs, dev_exs):
     dev_loss_list = []
 
     dev_accuracy_list = []
+    dev_f1_macro_list = []
     exact_match_list = []
     
     # Training Loop
@@ -154,7 +158,11 @@ def train_MLP(train_exs, dev_exs):
         all_labels = np.vstack(all_labels)
 
         # Compute metrics
-        f1 = f1_score(all_labels, all_preds, average='micro')
+        f1_micro = f1_score(all_labels, all_preds, average='micro')
+        try:
+            f1_macro = f1_score(all_labels, all_preds, average='macro')
+        except Exception:
+            f1_macro = None
         dev_accuracy = (all_preds == all_labels).mean()
         exact_match = np.mean(np.all(all_preds == all_labels, axis=1))
 
@@ -172,10 +180,17 @@ def train_MLP(train_exs, dev_exs):
             accuracy_per_class.append(acc)
         accuracy_per_class = np.array(accuracy_per_class, dtype=object)
 
+        # Prepare formatted macro f1 string
+        if f1_macro is None:
+            f1_macro_str = "N/A"
+        else:
+            f1_macro_str = f"{f1_macro:.4f}"
+
         print(f"Epoch {epoch}/{epochs} | "
               f"train_loss={avg_loss:.4f} | " 
               f"dev_loss={avg_dev_loss:.4f} | "
-              f"dev_f1={f1:.4f} | "
+              f"dev_f1_micro={f1_micro:.4f} | "
+              f"dev_f1_macro={f1_macro_str} | "
               f"dev_acc={dev_accuracy:.4f} | "
               f"exact_match={exact_match:.4f} | "
               f"time={elapsed_time:.2f} seconds")
@@ -192,6 +207,7 @@ def train_MLP(train_exs, dev_exs):
         train_loss_list.append(avg_loss)
         dev_loss_list.append(avg_dev_loss)
         dev_accuracy_list.append(dev_accuracy)
+        dev_f1_macro_list.append(f1_macro if f1_macro is not None else float('nan'))
         exact_match_list.append(exact_match)
     
     # Plotting results

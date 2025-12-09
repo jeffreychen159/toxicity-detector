@@ -47,7 +47,7 @@ def prepare_MLP():
     
 def prepare_bertweet_dropped():
     # Load CSV
-    df = pd.read_csv("train.csv").sample(frac=0.1, random_state=42)
+    df = pd.read_csv("train.csv").sample(frac=0.1, random_state=42) 
 
     # Prepare labels
     y, label_cols = prepare_labels(df)
@@ -60,7 +60,7 @@ def prepare_bertweet_dropped():
     toxic_indices = np.where(toxic_mask)[0]
 
     np.random.seed(42)
-    num_to_drop = int(0 * len(nontoxic_indices))
+    num_to_drop = int(0.9 * len(nontoxic_indices))
 
     drop_indices = np.random.choice(
         nontoxic_indices,
@@ -102,4 +102,4 @@ def prepare_bertweet():
 
 if __name__ == '__main__': 
     # prepare_MLP()
-    prepare_bertweet()
+    prepare_bertweet_dropped()

@@ -27,6 +27,38 @@ Epoch 4/4 | train_loss=0.0506 | dev_loss=0.0599 | dev_f1=0.6826 | dev_acc=0.9798
   insult          | F1: 0.6739 | Acc: 0.9688
   identity_hate   | F1: 0.3081 | Acc: 0.9917
 
+============================================================
+SUBTASK A: BINARY TOXICITY CLASSIFICATION (MLP)
+============================================================
+{
+  "model": "mlp_model.pth",
+  "sample_fraction": 1,
+  "validation_samples": 15958,
+  "accuracy": 0.9115177340518862,
+  "precision": 0.578790141896938,
+  "recall": 0.47751078250154033,
+  "f1": 0.5232950708980418,
+  "roc_auc": 0.8418742307615436,
+  "confusion_matrix": {
+    "tn": 13771,
+    "fp": 564,
+    "fn": 848,
+    "tp": 775
+  },
+  "support": {
+    "non_toxic": 14335,
+    "toxic": 1623
+  }
+}
+
+============================================================
+CONFUSION MATRIX
+============================================================
+True Negatives:  13,771
+False Positives: 564
+False Negatives: 848
+True Positives:  775
+
 
 ============================================================
 CROSS-DOMAIN RESULTS: MLP ON REDDIT TOXICITY DETECTION
