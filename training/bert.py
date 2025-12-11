@@ -11,8 +11,6 @@ Original file is located at
 This notebook trains a BERT model on the Jigsaw toxicity dataset and provides comprehensive evaluation metrics including cross-domain testing on Reddit data.
 """
 
-!pip install transformers torch scikit-learn datasets
-
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import torch
 from torch import nn
