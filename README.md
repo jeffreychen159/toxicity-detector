@@ -1,7 +1,7 @@
 # Toxicity Classifier
 
 ## Overview
-This project aims to test different models and analyze how well each model detects toxicity in text. This project tests
+This project aims to test different models and analyze how well each model detects toxicity in text. This project tests them by binary classification to determine if the text is toxic or not and then determines to classify the types of toxicities in each text given. 
 
 ## Features
 - Binary classification of text comments
