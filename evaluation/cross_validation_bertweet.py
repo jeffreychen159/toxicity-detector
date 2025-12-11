@@ -12,7 +12,7 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trai
 
 # Import BertTweetClassifier for loading custom model
 try:
-    from bert import BertTweetClassifier, TOKENIZER_NAME
+    from bertweet import BertTweetClassifier, TOKENIZER_NAME
 except ImportError:
     print("Warning: Could not import BertTweetClassifier from bert.py")
 
@@ -21,16 +21,16 @@ print("CROSS-DOMAIN EVALUATION: REDDIT DATA")
 print("="*60)
 
 # Load Real Toxicity Prompts dataset
-print("\n📥 Loading Real Toxicity Prompts dataset from HuggingFace...")
+print("\nLoading Real Toxicity Prompts dataset from HuggingFace...")
 dataset = load_dataset("allenai/real-toxicity-prompts", split="train")
-print(f"✅ Loaded {len(dataset):,} samples")
+print(f"Loaded {len(dataset):,} samples")
 
 # Convert to pandas for easier manipulation
 df = pd.DataFrame(dataset)
  
 # Extract prompts and toxicity scores
 # The dataset has 'prompt' and 'continuation' fields with nested toxicity scores
-print("\n🔍 Processing toxicity scores...")
+print("\nProcessing toxicity scores...")
  
 def extract_toxicity(example):
     """Extract toxicity score from prompt or continuation"""
@@ -56,12 +56,12 @@ reddit_df = pd.DataFrame(processed)
 reddit_df = reddit_df[reddit_df['toxicity_score'].notna()]
 reddit_df = reddit_df[reddit_df['text'].str.len() > 0]
  
-print(f"✅ Processed {len(reddit_df):,} samples with toxicity scores")
+print(f"Processed {len(reddit_df):,} samples with toxicity scores")
  
 # Convert toxicity scores to binary labels (threshold at 0.5)
 reddit_df['binary_label'] = (reddit_df['toxicity_score'] >= 0.5).astype(int)
  
-print(f"\n📊 Dataset Statistics:")
+print(f"\nDataset Statistics:")
 print(f"  Total samples: {len(reddit_df):,}")
 print(f"  Toxic samples: {reddit_df['binary_label'].sum():,} ({reddit_df['binary_label'].mean()*100:.1f}%)")
 print(f"  Non-toxic samples: {(reddit_df['binary_label'] == 0).sum():,} ({(reddit_df['binary_label'] == 0).mean()*100:.1f}%)")
@@ -70,10 +70,10 @@ print(f"  Mean toxicity score: {reddit_df['toxicity_score'].mean():.3f}")
 # Sample for faster evaluation (use 10,000 samples)
 EVAL_SAMPLES = min(10000, len(reddit_df))
 reddit_sample = reddit_df.sample(n=EVAL_SAMPLES, random_state=42).reset_index(drop=True)
-print(f"\n✅ Sampled {EVAL_SAMPLES:,} examples for evaluation")
+print(f"\nSampled {EVAL_SAMPLES:,} examples for evaluation")
 
 # Load the trained BERTweet model
-print("\n📦 Loading trained BERTweet model...")
+print("\nLoading trained BERTweet model...")
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
 
@@ -90,9 +90,9 @@ if os.path.exists(pth_path):
         model.eval()
         tokenizer = AutoTokenizer.from_pretrained(TOKENIZER_NAME, use_fast=False)
         model_loaded = True
-        print(f"✅ Successfully loaded {pth_path}")
+        print(f"Successfully loaded {pth_path}")
     except Exception as e:
-        print(f"❌ Failed to load {pth_path}: {e}")
+        print(f"Failed to load {pth_path}: {e}")
 
 # If .pth model didn't load, try checkpoint directories
 if not model_loaded:
@@ -112,9 +112,9 @@ if not model_loaded:
                 break
     
     if model_path is None:
-        print("❌ No trained model found (.pth or checkpoint directories). Please train BERTweet first.")
+        print("No trained model found (.pth or checkpoint directories). Please train BERTweet first.")
     else:
-        print(f"✅ Loading from: {model_path}")
+        print(f"Loading from: {model_path}")
         model = AutoModelForSequenceClassification.from_pretrained(model_path)
         tokenizer = AutoTokenizer.from_pretrained(model_path)
         model.to(device)
@@ -123,14 +123,14 @@ if not model_loaded:
 
 if model_loaded:
     # Tokenize Reddit data
-    print("\n🔤 Tokenizing Reddit text...")
+    print("\nTokenizing Reddit text...")
     texts = reddit_sample['text'].tolist()
     labels = reddit_sample['binary_label'].values
 
     encodings = tokenizer(texts, truncation=True, max_length=128, padding=True, return_tensors='pt')
 
     # Create simple batch processing
-    print("\n🚀 Running predictions on Reddit data...")
+    print("\nRunning predictions on Reddit data...")
     all_probs = []
     batch_size = 64
 
@@ -211,18 +211,18 @@ if model_loaded:
         f1_drop = jigsaw_metrics['f1'] - f1
         drop_pct = (f1_drop / jigsaw_metrics['f1']) * 100
 
-        print(f"\n📉 Performance Drop:")
+        print(f"\nPerformance Drop:")
         print(f"  F1 Score decreased by {f1_drop:.4f} ({drop_pct:.1f}%)")
 
         if drop_pct < 5:
-            print(f"  ✅ Excellent generalization! Model performs similarly on Reddit data.")
+            print(f"  Excellent generalization! Model performs similarly on Reddit data.")
         elif drop_pct < 15:
-            print(f"  ✓ Good generalization with minor domain gap.")
+            print(f"  Good generalization with minor domain gap.")
         else:
-            print(f"  ⚠️ Significant domain gap detected. Model struggles with Reddit-style language.")
+            print(f"  Significant domain gap detected. Model struggles with Reddit-style language.")
 
     # Save results
     save_path = f'reddit_cross_domain_results.json'
     with open(save_path, 'w') as f:
         json.dump(reddit_metrics, f, indent=2)
-    print(f"\n✅ Results saved to: {save_path}")
+    print(f"\nResults saved to: {save_path}")

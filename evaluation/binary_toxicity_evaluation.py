@@ -13,13 +13,13 @@ import json
 # Evaluate BERTweet model on 10% sample of train.csv
 bertweet_pth = 'bertweet_model.pth'
 try:
-    from bert import BertTweetClassifier, TOKENIZER_NAME
+    from bertweet import BertTweetClassifier, TOKENIZER_NAME
 except Exception:
     BertTweetClassifier = None
     TOKENIZER_NAME = None
 
 if os.path.exists(bertweet_pth) and BertTweetClassifier is not None and TOKENIZER_NAME is not None:
-    print(f"✅ Found BERTweet model state: {bertweet_pth}. Running BERTweet evaluation...")
+    print(f"Found BERTweet model state: {bertweet_pth}. Running BERTweet evaluation...")
 
     df = pd.read_csv('train.csv')
     LABEL_COLS = ['toxic', 'severe_toxic', 'obscene', 'threat', 'insult', 'identity_hate']
@@ -115,8 +115,8 @@ if os.path.exists(bertweet_pth) and BertTweetClassifier is not None and TOKENIZE
     save_path = 'mlp_binary_classification_results.json'
     with open(save_path, 'w') as f:
         json.dump(metrics, f, indent=2)
-    print(f"\n✅ Results saved to: {save_path}")
+    print(f"\nResults saved to: {save_path}")
     # Exit after MLP evaluation
     raise SystemExit(0)
 else:
-    print("❌ No BERTweet model found. Please ensure bertweet_model.pth exists.")
+    print("No BERTweet model found. Please ensure bertweet_model.pth exists.")

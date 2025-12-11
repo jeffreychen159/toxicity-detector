@@ -13,7 +13,7 @@ from sklearn.decomposition import TruncatedSVD
 
 # Import MLP and TfidfSVDTransformer
 try:
-    from model import MLP, TfidfSVDTransformer
+    from mlp import MLP, TfidfSVDTransformer
 except ImportError:
     print("Error: Could not import MLP or TfidfSVDTransformer from model.py")
     exit(1)
@@ -23,15 +23,15 @@ print("CROSS-DOMAIN EVALUATION: MLP CLASSIFIER ON REDDIT DATA")
 print("="*60)
 
 # Load Real Toxicity Prompts dataset
-print("\n📥 Loading Real Toxicity Prompts dataset from HuggingFace...")
+print("\noading Real Toxicity Prompts dataset from HuggingFace...")
 dataset = load_dataset("allenai/real-toxicity-prompts", split="train")
-print(f"✅ Loaded {len(dataset):,} samples")
+print(f"Loaded {len(dataset):,} samples")
 
 # Convert to pandas for easier manipulation
 df = pd.DataFrame(dataset)
  
 # Extract prompts and toxicity scores
-print("\n🔍 Processing toxicity scores...")
+print("\nProcessing toxicity scores...")
  
 def extract_toxicity(example):
     """Extract toxicity score from prompt or continuation"""
@@ -57,12 +57,12 @@ reddit_df = pd.DataFrame(processed)
 reddit_df = reddit_df[reddit_df['toxicity_score'].notna()]
 reddit_df = reddit_df[reddit_df['text'].str.len() > 0]
  
-print(f"✅ Processed {len(reddit_df):,} samples with toxicity scores")
+print(f"Processed {len(reddit_df):,} samples with toxicity scores")
  
 # Convert toxicity scores to binary labels (threshold at 0.5)
 reddit_df['binary_label'] = (reddit_df['toxicity_score'] >= 0.5).astype(int)
  
-print(f"\n📊 Dataset Statistics:")
+print(f"\nDataset Statistics:")
 print(f"  Total samples: {len(reddit_df):,}")
 print(f"  Toxic samples: {reddit_df['binary_label'].sum():,} ({reddit_df['binary_label'].mean()*100:.1f}%)")
 print(f"  Non-toxic samples: {(reddit_df['binary_label'] == 0).sum():,} ({(reddit_df['binary_label'] == 0).mean()*100:.1f}%)")
@@ -71,10 +71,10 @@ print(f"  Mean toxicity score: {reddit_df['toxicity_score'].mean():.3f}")
 # Sample for faster evaluation (use 10,000 samples)
 EVAL_SAMPLES = min(10000, len(reddit_df))
 reddit_sample = reddit_df.sample(n=EVAL_SAMPLES, random_state=42).reset_index(drop=True)
-print(f"\n✅ Sampled {EVAL_SAMPLES:,} examples for evaluation")
+print(f"\nSampled {EVAL_SAMPLES:,} examples for evaluation")
 
 # Load the trained MLP model
-print("\n📦 Loading trained MLP model...")
+print("\nLoading trained MLP model...")
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Using device: {device}")
 
@@ -92,15 +92,15 @@ if os.path.exists(pth_path):
         model.to(device)
         model.eval()
         model_loaded = True
-        print(f"✅ Successfully loaded {pth_path}")
+        print(f"Successfully loaded {pth_path}")
     except Exception as e:
-        print(f"❌ Failed to load {pth_path}: {e}")
+        print(f"Failed to load {pth_path}: {e}")
         import traceback
         traceback.print_exc()
 
 if model_loaded:
     # Transform Reddit text using TF-IDF + SVD
-    print("\n🔤 Transforming Reddit text with TF-IDF + SVD...")
+    print("\nTransforming Reddit text with TF-IDF + SVD...")
     texts = reddit_sample['text'].tolist()
     labels = reddit_sample['binary_label'].values
     
@@ -111,7 +111,7 @@ if model_loaded:
     X_reddit_tensor = torch.tensor(X_reddit, dtype=torch.float32)
     
     # Run predictions in batches
-    print("\n🚀 Running predictions on Reddit data...")
+    print("\nRunning predictions on Reddit data...")
     all_logits = []
     batch_size = 64
 
@@ -129,7 +129,7 @@ if model_loaded:
     preds = (toxic_probs >= 0.5).astype(int)
 
     # Compute metrics
-    print("\n📊 Computing metrics...")
+    print("\nComputing metrics...")
     acc = accuracy_score(labels, preds)
     prec = precision_score(labels, preds, zero_division=0)
     rec = recall_score(labels, preds, zero_division=0)
@@ -190,21 +190,21 @@ if model_loaded:
         f1_drop = jigsaw_metrics['f1'] - f1
         drop_pct = (f1_drop / jigsaw_metrics['f1']) * 100
 
-        print(f"\n📉 Performance Drop:")
+        print(f"\nPerformance Drop:")
         print(f"  F1 Score decreased by {f1_drop:.4f} ({drop_pct:.1f}%)")
 
         if drop_pct < 5:
-            print(f"  ✅ Excellent generalization! Model performs similarly on Reddit data.")
+            print(f"  Excellent generalization! Model performs similarly on Reddit data.")
         elif drop_pct < 15:
-            print(f"  ✓ Good generalization with minor domain gap.")
+            print(f"  Good generalization with minor domain gap.")
         else:
-            print(f"  ⚠️ Significant domain gap detected. Model struggles with Reddit-style language.")
+            print(f"  Significant domain gap detected. Model struggles with Reddit-style language.")
 
     # Save results
     save_path = f'mlp_reddit_cross_domain_results.json'
     with open(save_path, 'w') as f:
         json.dump(reddit_metrics, f, indent=2)
-    print(f"\n✅ Results saved to: {save_path}")
+    print(f"\nResults saved to: {save_path}")
 
 else:
-    print("❌ Model could not be loaded. Please ensure mlp_model.pth exists.")
+    print("Model could not be loaded. Please ensure mlp_model.pth exists.")

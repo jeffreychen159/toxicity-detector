@@ -3,9 +3,9 @@ import os
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
-from model import *
+from mlp import *
 from sklearn.model_selection import train_test_split
-from bert import *
+from bertweet import *
 
 def prepare_labels(df):
     # Typical jigsaw labels
