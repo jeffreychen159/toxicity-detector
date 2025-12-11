@@ -22,7 +22,7 @@ All training is either done in the Google Colab file or the ```train_wikipedia.p
 - ```allenai/real-toxicity-prompts``` from huggingface was used to cross-validate our training process
 
 ## Results
-- Classical MLP model performed at 91.10% accuracy for the validation set and a 74.22% accuracy for cross-validation
-- BERT performed at 95.60% accuracy for the validation set and a 88.71% accuracy for cross-validation
-- BERTweet performed at 98.17% accuracy for the validation set and a 88.93% accuracy for cross validation
-- HateBERT performed at 98.95% accuracy for the validation set and a89.66% for cross validation
+- Classical MLP model performed at **91.10%** accuracy for the validation set and a **74.22%** accuracy for cross-validation
+- BERT performed at **95.60%** accuracy for the validation set and a **88.71%** accuracy for cross-validation
+- BERTweet performed at **98.17%** accuracy for the validation set and a **88.93%** accuracy for cross validation
+- HateBERT performed at **98.95%** accuracy for the validation set and a **89.66%** for cross validation
