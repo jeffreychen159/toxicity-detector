@@ -30,6 +30,7 @@ python train_hatebert.py --train_csv train.csv --output_dir outputs/hatebert
 Training scripts for BERT and BERTweet are available in the `training/` directory.
 
 ## Results
+<<<<<<< Updated upstream
 
 ### Binary Classification (Wikipedia Validation)
 | Model | Accuracy | F1 |
@@ -53,3 +54,12 @@ Training scripts for BERT and BERTweet are available in the `training/` director
 - **BERTweet excels at informal, slang-heavy toxicity** from social media adaptation
 - **All models show performance degradation on cross-domain evaluation**, with MLP failing severely
 
+=======
+- MLP performed at **91.10%** accuracy for the validation set and a **74.22%** accuracy for cross-validation
+- BERT performed at **95.60%** accuracy for the validation set and a **88.71%** accuracy for cross-validation
+- BERTweet performed at **98.17%** accuracy for the validation set and a **88.93%** accuracy for cross validation
+- HateBERT performed at **98.95%** accuracy for the validation set and a **89.66%** for cross validation
+
+## References
+This project was done for CS6120: Natural Language Processing at Northeastern University taught by Professor Silvio Amir. 
+>>>>>>> Stashed changes
