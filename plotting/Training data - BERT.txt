@@ -6,7 +6,9 @@ Epoch 2/3 | train_loss=0.0498 | dev_loss=0.0522 | dev_f1_micro=0.7824 | dev_acc=
 
 Epoch 3/3 | train_loss=0.0403 | dev_loss=0.0565 | dev_f1_micro=0.7734 | dev_acc=0.9795 | exact_match=0.9062 | time=398.6 sec Per-label metrics: toxic: F1=0.8152, Precision=0.8579, Recall=0.7766, Support=3039.0 severe_toxic: F1=0.5232, Precision=0.4986, Recall=0.5503, Support=318.0 obscene: F1=0.8059, Precision=0.8583, Recall=0.7594, Support=1667.0 threat: F1=0.5432, Precision=0.6769, Recall=0.4536, Support=97.0 insult: F1=0.7622, Precision=0.7843, Recall=0.7413, Support=1589.0 identity_hate: F1=0.5844, Precision=0.5833, Recall=0.5855, Support=275.0 
 
-================================================================================ TRAINING COMPLETE - Computing comprehensive metrics... ================================================================================ Computing comprehensive metrics... ================================================================================ COMPREHENSIVE EVALUATION METRICS ================================================================================ 
+================================================================================ 
+TRAINING COMPLETE - Computing comprehensive metrics... 
+================================================================================ 
 Overall Metrics (threshold=0.5): 
 Loss: 0.0565 
 Micro F1: 0.7734 
@@ -66,10 +68,13 @@ Precision: 0.5833
 Recall: 0.5855 
 ROC-AUC: 0.9778 
 Support: 275 
-Confusion Matrix: TN=24357, FP=115, FN=114, TP=161 ================================================================================
+Confusion Matrix: TN=24357, FP=115, FN=114, TP=161 
+================================================================================
 
 
-================================================================================ CROSS-DOMAIN RESULTS: REDDIT TOXICITY DETECTION ================================================================================ 
+================================================================================ 
+CROSS-DOMAIN RESULTS: REDDIT TOXICITY DETECTION 
+================================================================================ 
 { 
 	"dataset": "Real Toxicity Prompts (Reddit)", 
 	"model": "BERT-base-cased (trained on Wikipedia/Jigsaw)", 
@@ -91,11 +96,17 @@ Confusion Matrix: TN=24357, FP=115, FN=114, TP=161 =============================
 		}
 }
 
-================================================================================ CONFUSION MATRIX (REDDIT) ================================================================================ 
+================================================================================ 
+CONFUSION MATRIX (REDDIT) 
+================================================================================ 
 True Negatives: 7,692 
 False Positives: 145 
 False Negatives: 984 
-True Positives: 1,179 ================================================================================ DOMAIN GAP ANALYSIS: WIKIPEDIA (JIGSAW) vs REDDIT ================================================================================ 
+True Positives: 1,179 
+
+================================================================================ 
+DOMAIN GAP ANALYSIS: WIKIPEDIA (JIGSAW) vs REDDIT 
+================================================================================ 
 Metric Jigsaw (Wikipedia) Reddit Gap 
 --------------------------------------------------------------------------- 
 Accuracy 0.9795 0.8871 +0.0924 
@@ -104,6 +115,6 @@ Recall 0.7766 0.5451 +0.2315
 F1 Score 0.8152 0.6762 +0.1390 
 ROC-AUC 0.9798 0.9302 +0.0495 
 
-📉 Performance Drop: 
+Performance Drop: 
 	F1 Score decreased by 0.1390 (17.0%) 
-	⚠️ Significant domain gap detected. Model struggles with Reddit-style language.
+	Significant domain gap detected. Model struggles with Reddit-style language.
